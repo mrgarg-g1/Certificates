@@ -1,7 +1,3 @@
-Sure, here's a README file for your certificates repository without using URLs:
-
----
-
 # Certificates Repository
 
 ## Deepak Garg's Certifications
