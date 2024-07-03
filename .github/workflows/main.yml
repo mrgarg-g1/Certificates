@@ -34,16 +34,23 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      # Install dependencies for SVG to GIF conversion
-      - name: Install dependencies
+      # Install dependencies for SVG to PNG conversion
+      - name: Install Node.js and svgexport
         run: |
           sudo apt-get update
+          sudo apt-get install -y nodejs npm
+          sudo npm install -g svgexport
           sudo apt-get install -y imagemagick
 
-      # Convert the SVG to GIF
-      - name: Convert SVG to GIF
+      # Convert the SVG to PNG
+      - name: Convert SVG to PNG
         run: |
-          convert dist/github-contribution-grid-snake.svg dist/github-contribution-grid-snake.gif
+          svgexport dist/github-contribution-grid-snake.svg dist/github-contribution-grid-snake.png
+
+      # Convert the PNG to GIF
+      - name: Convert PNG to GIF
+        run: |
+          convert dist/github-contribution-grid-snake.png dist/github-contribution-grid-snake.gif
 
       # Push the content of the build directory to a branch
       # The content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file>, or as GitHub page
