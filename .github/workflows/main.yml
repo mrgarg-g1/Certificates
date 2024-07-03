@@ -27,7 +27,7 @@ jobs:
 
       # Generates a snake game from a GitHub user's contributions graph, outputs a GIF animation
       - name: generate github-contribution-grid-snake.gif
-        uses: Platane/snk@v2  # Ensure you're using the correct version or action for GIF generation
+        uses: Platane/snk/svg-only@v3  # Ensure you're using the correct version or action for GIF generation
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: gif  # Specify that you want a GIF output
