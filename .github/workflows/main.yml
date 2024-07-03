@@ -18,20 +18,12 @@ jobs:
     permissions: 
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     
     steps:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      # Generates a snake game from a GitHub user's contributions graph, outputs a GIF animation
-      - name: generate github-contribution-grid-snake.gif
-        uses: Platane/snk/svg-only@v3  # Ensure you're using the correct version or action for GIF generation
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/github-contribution-grid-snake.gif
 
       # Generates a snake game from a GitHub user's contributions graph, outputs an SVG animation
       - name: generate github-contribution-grid-snake.svg
@@ -41,11 +33,21 @@ jobs:
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
-            
-          
+
+      # Install dependencies for SVG to GIF conversion
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      # Convert the SVG to GIF
+      - name: Convert SVG to GIF
+        run: |
+          convert dist/github-contribution-grid-snake.svg dist/github-contribution-grid-snake.gif
+
       # Push the content of the build directory to a branch
       # The content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file>, or as GitHub page
-      - name: push github-contribution-grid-snake.svg to the output branch
+      - name: push github-contribution-grid-snake.svg and gif to the output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
