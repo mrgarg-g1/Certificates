@@ -30,7 +30,8 @@ jobs:
         uses: Platane/snk/svg-only@v3  # Ensure you're using the correct version or action for GIF generation
         with:
           github_user_name: ${{ github.repository_owner }}
-          outputs: dist/github-contribution-grid-snake.gif
+          outputs: |
+            dist/github-contribution-grid-snake.gif
 
       # Generates a snake game from a GitHub user's contributions graph, outputs an SVG animation
       - name: generate github-contribution-grid-snake.svg
